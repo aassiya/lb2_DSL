@@ -1,5 +1,8 @@
 import re
+import pymorphy2
 
+
+morph = pymorphy2.MorphAnalyzer()
 
 def load_grammar(filename):
     """Загружает грамматику из файла"""
@@ -32,7 +35,7 @@ def tokenize(text):
             for digit in match:
                 tokens.append(digit)
         else:
-            tokens.append(match)
+            tokens.append(morph.parse(match)[0].normal_form)
     return tokens
 
 
